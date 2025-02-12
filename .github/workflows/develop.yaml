@@ -1,0 +1,27 @@
+name: Develop
+
+on:
+  push:
+    branches: [develop]
+
+jobs:
+  verify:
+    name: Verify
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions-rs/toolchain@v1
+        with:
+            toolchain: nightly
+            override: true
+            components: rustfmt, clippy
+
+      - name: Setup
+        run: cargo install just
+
+      - name: Lint
+        run: just lint
+
+      - name: Test
+        run: just test
