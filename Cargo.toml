@@ -1,0 +1,33 @@
+[package]
+name = "rusty-libc"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+name = "rusty_libc"
+path = "src/lib.rs"
+crate-type = ["staticlib"]
+
+[profile.dev]
+panic = "abort"
+opt-level = 1
+lto = true
+codegen-units = 1
+
+[profile.release]
+panic = "abort"
+lto = true
+codegen-units = 1
+
+[features]
+default = ["panic_handler"]
+start = ["panic_handler"]
+panic_handler = []
+
+[dependencies]
+atomic-dbg = { version = "0.1.8", default-features = false }
+# alloc = { version = "1.0.0", optional = true, package = "rustc-std-workspace-alloc" }
+
+# [dev-dependencies]
+# # for testing feature parity
+# libc = "0.2.169"

@@ -1,0 +1,44 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "type": "shell",
+            "command": "just build",
+            "label": "just: build",
+            "group": "build",
+            "options": {
+                "cwd": "${workspaceFolder}"
+            }
+        },
+        {
+            "type": "shell",
+            "command": "just lint",
+            "label": "just: lint",
+            "options": {
+                "cwd": "${workspaceFolder}"
+            }
+        },
+        {
+            "type": "shell",
+            "command": "just test",
+            "label": "just: test",
+            "group": "test",
+            "options": {
+                "cwd": "${workspaceFolder}"
+            }
+        },
+        {
+            "type": "shell",
+            "command": "just run",
+            "label": "c-demo: run",
+            "options": {
+                "cwd": "${workspaceFolder}/examples/c-demo",
+                "env": {
+                    "RUST_BACKTRACE": "1",
+                    "DEMO_NAME": "demo",
+                    "DEMO_LIFE": "42"
+                }
+            }
+        }
+    ]
+}

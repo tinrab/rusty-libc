@@ -1,0 +1,36 @@
+build:
+    cd ../.. && just build
+
+    clang -g -o c_demo \
+        -static \
+        -nostdlib \
+        -I ./include \
+        ./src/main.c \
+        -L ../../target/x86_64-unknown-linux-gnu/debug -lrusty_libc \
+        -Wl,-rpath,../../target/x86_64-unknown-linux-gnu/debug \
+
+    # gcc -o c_demo \
+    #     -I ./include \
+    #     ./src/main.c \
+    #     -nostdlib \
+    #     -L ../../target/x86_64-unknown-linux-gnu/debug -lrusty_libc \
+    #     -Wl,-rpath,../../target/x86_64-unknown-linux-gnu/debug
+
+build_asm:
+    cd ../.. && just build
+
+    clang -S -o c_demo.s \
+        -nostdlib -static \
+        -fverbose-asm \
+        -I ./include \
+        ./src/main.c \
+        -L ../../target/x86_64-unknown-linux-gnu/debug -lrusty_libc \
+        -Wl,-rpath,../../target/x86_64-unknown-linux-gnu/debug \
+
+
+
+run: build
+    ./c_demo hello world
+
+clean:
+    rm -rf ./c_demo
